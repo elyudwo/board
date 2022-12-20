@@ -11,6 +11,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @SpringBootTest
 public class MemberRepositoryTest {
@@ -20,7 +21,6 @@ public class MemberRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
     public void testMember() {
         Member member = new Member();
         member.setName("memberA");
@@ -29,5 +29,30 @@ public class MemberRepositoryTest {
 
         Assertions.assertThat(savedId).isEqualTo(member.getId());
     }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void testPrintAll() {
+        Member member1 = new Member();
+        member1.setName("member1");
+
+        Member member2 = new Member();
+        member1.setName("member2");
+
+        Member member3 = new Member();
+        member1.setName("member3");
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+
+
+        List<Member> memberList = memberRepository.findAll();
+        Assertions.assertThat(memberList.size()).isEqualTo(3);
+
+    }
+
+
 
 }
