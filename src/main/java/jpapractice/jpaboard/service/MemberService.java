@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -22,7 +24,8 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        if(memberRepository.findByName(member.getMemberId()).size() != 0) {
+        List<Member> members = memberRepository.findById(member.getMemberId());
+        if(!members.isEmpty()) {
             throw new IllegalStateException("동일한 아이디가 있습니다.");
         }
     }
