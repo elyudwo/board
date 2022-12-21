@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @RequiredArgsConstructor
@@ -15,9 +12,12 @@ import javax.persistence.Id;
 public class Reports {
 
     @Id @GeneratedValue
-    @Column(name = "reports_id")
     private Long id;
 
     private String title;
     private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 }
