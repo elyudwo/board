@@ -32,16 +32,16 @@ public class MemberRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    @Rollback(value = false)
     public void testPrintAll() {
         Member member1 = new Member();
         member1.setName("member1");
 
         Member member2 = new Member();
-        member1.setName("member2");
+        member2.setName("member2");
 
         Member member3 = new Member();
-        member1.setName("member3");
+        member3.setName("member3");
 
         memberRepository.save(member1);
         memberRepository.save(member2);
@@ -50,9 +50,5 @@ public class MemberRepositoryTest {
 
         List<Member> memberList = memberRepository.findAll();
         Assertions.assertThat(memberList.size()).isEqualTo(3);
-
     }
-
-
-
 }
