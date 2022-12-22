@@ -3,7 +3,6 @@ package jpapractice.jpaboard.controller;
 import jpapractice.jpaboard.domain.Member;
 import jpapractice.jpaboard.repository.MemberRepository;
 import jpapractice.jpaboard.service.MemberService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -52,4 +50,20 @@ public class MemberController {
 
         return "members/memberList";
     }
+
+    @GetMapping("/members/login")
+    public String loginForm(Model model) {
+        model.addAttribute("memberForm",new MemberForm());
+        return "members/login";
+    }
+
+    @PostMapping("/members/login")
+    public String login(@Valid MemberForm form) {
+        if(memberService.login(form.getMemberId(),form.getMemberPassWd())) {
+            return "home";
+        }
+        return "members/login";
+    }
+
+
 }

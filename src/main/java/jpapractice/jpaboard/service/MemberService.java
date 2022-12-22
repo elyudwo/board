@@ -23,11 +23,17 @@ public class MemberService {
         return member.getId();
     }
 
+
+    public boolean login(String memberId, String memberPassWd) {
+        List<Member> members = memberRepository.findById(memberId);
+        if(members.get(0).getMemberPasswd().equals(memberPassWd)) { return true; }
+        return false;
+    }
+
     private void validateDuplicateMember(Member member) {
         List<Member> members = memberRepository.findById(member.getMemberId());
         if(!members.isEmpty()) {
             throw new IllegalStateException("동일한 아이디가 있습니다.");
         }
     }
-
 }
