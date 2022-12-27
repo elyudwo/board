@@ -18,7 +18,7 @@ public class ReportsRepository {
     public Reports findOne(Long id) { return em.find(Reports.class,id); }
 
     public List<Reports> findAll() {
-        return em.createQuery("select r from Item r",Reports.class)
+        return em.createQuery("select m from Reports m",Reports.class)
                 .getResultList();
     }
 }
