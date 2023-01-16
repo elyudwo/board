@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -65,5 +64,26 @@ public class MemberController {
         return "members/login";
     }
 
+    @GetMapping("/member/{userId}/edit")
+    public String user(@PathVariable("userId") Long userId, Model model) {
+        Member member = memberRepository.findOne(userId);
+        model.addAttribute("member",member);
+        return "members/updateMemberForm";
+    }
 
+    @PostMapping("/member/{userId}/edit")
+    public String editUser(@PathVariable("userId") Long userId,
+                           @RequestParam String id,
+                           @RequestParam String passWd,
+                           @RequestParam String name,
+                           @RequestParam String college
+                           ) {
+        System.out.println(id);
+        System.out.println(passWd);
+        System.out.println(name);
+        System.out.println(college);
+
+        memberRepository.updateMember(userId, id, passWd, name, college);
+        return "redirect:/members";
+    }
 }
