@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -57,11 +59,16 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public String login(@Valid MemberForm form) {
-        if(memberService.login(form.getMemberId(),form.getMemberPassWd())) {
+    public String login(@Valid MemberForm form, HttpServletRequest request) {
+        Member member = memberService.login(form.getMemberId(),form.getMemberPassWd());
+        if(member == null) {
             return "home";
         }
-        return "members/login";
+
+        HttpSession session = request.getSession();
+        session.setAttribute("loginMember",member);
+
+        return "redirect:/";
     }
 
     @GetMapping("/member/{userId}/edit")

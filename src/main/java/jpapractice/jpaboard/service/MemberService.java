@@ -24,10 +24,10 @@ public class MemberService {
     }
 
 
-    public boolean login(String memberId, String memberPassWd) {
+    public Member login(String memberId, String memberPassWd) {
         List<Member> members = memberRepository.findById(memberId);
-        if(members.get(0).getMemberPasswd().equals(memberPassWd)) { return true; }
-        return false;
+        if(members.get(0).getMemberPasswd().equals(memberPassWd)) { return members.get(0); }
+        return null;
     }
 
     private void validateDuplicateMember(Member member) {
