@@ -20,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReportsController {
 
+    private static int liljay = 5;
     private final ReportsService reportsService;
     private final ReportsRepository reportsRepository;
 
@@ -37,6 +38,10 @@ public class ReportsController {
         Reports reports = new Reports();
         reports.setContent(form.getContent());
         reports.setTitle(form.getTitle());
+
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+
 
         reportsService.saveReports(reports);
         return "redirect:/";

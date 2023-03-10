@@ -14,8 +14,8 @@
       </thead>
       <tbody>
       <tr th:each="member : ${members}">
-        <td th:text="${member.name}"></td>
-        <td th:text="${member.college}"></td>
+        <td> <a href="#" th:href="@{/member/{id}/edit (id=${member.id})}" th:text="${member.name}"></a></td>
+        <td> <<a href="#" th:text="${member.college}"> </a></td>
       </tr>
       </tbody>
     </table>
